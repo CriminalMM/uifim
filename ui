@@ -1,7 +1,7 @@
 local finity = {}
 finity.gs = {}
 
-finity.light_theme = { -- dark
+finity.theme = { -- light
 	main_container = Color3.fromRGB(249, 249, 255),
 	separator_color = Color3.fromRGB(223, 219, 228),
 
