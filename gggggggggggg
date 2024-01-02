@@ -740,25 +740,7 @@ Section1:Check({
     end
  })
 
- Section1:Button({
-    Text = "Info Of Target",
-    Callback = function()
-        local player = game.Players.LocalPlayer -- Assuming you're referencing the local player
-        local selectedPlayer = ... -- You'll need to define or get the selectedPlayer variable
-
-        local leaderstats = player:FindFirstChild("leaderstats")
-        if leaderstats then
-            local leaderstatsInfo = string.format("Contant Geld: %d\nBank Geld: %d\nZwart Geld: %d",
-                leaderstats.Geld.Value,
-                leaderstats.Bank.Value,
-                leaderstats.Zwartgeld.Value
-            )
-
-            local NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
-            NotificationLibrary:SendNotification("Info", "Player Name: " .. selectedPlayer.Name .. "\nBank: " .. leaderstats.Bank.Value .. "\nContant: " .. leaderstats.Geld.Value .. "\nZwartgeld: " .. leaderstats.Zwartgeld.Value, 7)
-        end
-    end
-})
+ 
 
 
 
@@ -1359,6 +1341,142 @@ end
         end
     end
  })
+ 
+ --// Loading ESP Modules
+local espLib = {
+    drawings = {},
+    instances = {},
+    espCache = {},
+    chamsCache = {},
+    objectCache = {},
+    conns = {},
+    whitelist = {}, -- insert string that is the player's name you want to whitelist (turns esp color to whitelistColor in options)
+    blacklist = {}, -- insert string that is the player's name you want to blacklist (removes player from esp)
+    options = {
+        enabled = true,
+        minScaleFactorX = 1,
+        maxScaleFactorX = 10,
+        minScaleFactorY = 1,
+        maxScaleFactorY = 10,
+        boundingBox = false, -- WARNING | Significant Performance Decrease when true
+        boundingBoxDescending = false,
+        font = 2,
+        fontSize = 13,
+        limitDistance = false,
+        maxDistance = 1000,
+        visibleOnly = false,
+        teamCheck = false,
+        teamColor = false,
+        fillColor = nil,
+        whitelistColor = Color3.new(1, 0, 0),
+        outOfViewArrows = false,
+        outOfViewArrowsFilled = false,
+        outOfViewArrowsSize = 25,
+        outOfViewArrowsRadius = 100,
+        outOfViewArrowsColor = Color3.new(1, 1, 1),
+        outOfViewArrowsTransparency = 0.5,
+        outOfViewArrowsOutline = false,
+        outOfViewArrowsOutlineFilled = false,
+        outOfViewArrowsOutlineColor = Color3.new(1, 1, 1),
+        outOfViewArrowsOutlineTransparency = 1,
+        names = false,
+        nameTransparency = 1,
+        nameColor = Color3.new(1, 1, 1),
+        boxes = false,
+        boxesTransparency = 1,
+        boxesColor = Color3.new(1, 0, 0),
+        boxFill = false,
+        boxFillTransparency = 0.5,
+        boxFillColor = Color3.new(1, 0, 0),
+        healthBars = false,
+        healthBarsSize = 1,
+        healthBarsTransparency = 1,
+        healthBarsColor = Color3.new(0, 1, 0),
+        healthText = false,
+        healthTextTransparency = 1,
+        healthTextSuffix = "%",
+        healthTextColor = Color3.new(1, 1, 1),
+        distance = false,
+        distanceTransparency = 1,
+        distanceSuffix = " Studs",
+        distanceColor = Color3.new(1, 1, 1),
+        tracers = false,
+        tracerTransparency = 1,
+        tracerColor = Color3.new(1, 1, 1),
+        tracerOrigin = "Bottom", -- Available [Mouse, Top, Bottom]
+        chams = false,
+        chamsFillColor = Color3.new(1, 0, 0),
+        chamsFillTransparency = 0.5,
+        chamsOutlineColor = Color3.new(),
+        chamsOutlineTransparency = 0
+    },
+ };
+ local espLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Sirius/request/library/esp/esp.lua'),true))()
+ -------------------------Bypass by iris
+ getgenv().BypassSettings = {
+   ["Crystal AntiCheat"] = false,
+   ["Adonis"] = false,
+ 
+   ["Anti-Obfuscated Scripts"] = false,-- CANNOT BE ENABLED WITH CRYSTAL This will block any obfuscated script on the client from running (Not executed by your exploit thought)
+   ["Random"] = false, -- Will disallow scripts calling, GetPropertyChanged signal on WalkSpeed, JumpPower, Gravity, Health, LogService
+ 
+   ["Enable Kill Logs"] = false, -- Say if you want to get told what's bypassed
+ }
+ 
+ loadstring(game:HttpGet("https://irisapp.ca/TheGoodSucc/iAntiCheat.lua"))()
+
+ local Section1 = Tab3:Section({
+    Text = "Visuals",
+    Side = "Right"
+ })
+
+ Section:Check({
+    Text = "Enable ESP",
+    Callback = function(Value)
+        local espfunc = Value
+        if espfunc then
+        espLib:Load()
+        end
+        if not espfunc then
+        espLib:Unload()
+        end
+    end
+ })
+
+ Section:Check({
+    Text = "Name ESP",
+    Callback = function(Value)
+        espLib.options.names = Value
+    end
+ })
+
+ Section:Check({
+    Text = "Box ESP",
+    Callback = function(Value)
+        espLib.options.boxes = Value
+    end
+ })
+
+ Section:Check({
+    Text = "Health ESP",
+    Callback = function(Value)
+        espLib.options.healthBars = Value
+    end
+ })
+
+ espLib.options.outOfViewArrows = false
+    espLib.options.outOfViewArrowsOutline = false
+    espLib.options.outOfViewArrowsFilled = false
+    espLib.options.outOfViewArrowsOutlineFilled = false
+    espLib.options.teamCheck = false
+    espLib.options.boxes = false
+    espLib.options.boxFill = false
+    espLib.options.healthBars = false
+    espLib.options.healthText = false
+    espLib.options.tracers = false
+    espLib.options.limitDistance = false
+    espLib.options.visibleOnly = false
+    espLib.options.chams = false
  
 
 
