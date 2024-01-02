@@ -1498,5 +1498,5 @@ while true do
     if semicolonPressed then
         pphud.Enabled = not pphud.Enabled
     end
-    wait(0.0001)
+    wait(0.25)
 end
