@@ -1,0 +1,1525 @@
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Rain-Design/PPHUD/main/Library.lua'))()
+local Flags = Library.Flags
+
+local Window = Library:Window({
+   Text = "ReaperCheats.cc | Admin Panel | Welcome, " .. game.Players.LocalPlayer.Name .. " Your Minimalization Key: ;"
+})
+
+local Tab = Window:Tab({
+   Text = "Player"
+})
+
+local Tab2 = Window:Tab({
+   Text = "Network"
+})
+
+local Tab3 = Window:Tab({
+    Text = "Combat"
+ })
+
+local Section = Tab:Section({
+   Text = "Basic"
+})
+
+local Section2 = Tab:Section({
+   Text = "Vehicle"
+})
+
+local Section3 = Tab:Section({
+   Text = "Detectables",
+   Side = "Right"
+})
+
+local Section4 = Tab:Section({
+    Text = "Usefull Sliders",
+    Side = "Right"
+ })
+
+Section:Check({
+    Text = "God Mode [!]",
+    Callback = function(Value)
+        _G.godattempt = Value
+
+        while true do
+          if _G.godattempt then
+            local player = game.Players.LocalPlayer
+                              local character = player.Character or player.CharacterAdded:Wait()
+                              local humanoid = character:FindFirstChildOfClass("Humanoid")
+                              if humanoid then
+                                  humanoid.MaxHealth = math.huge
+                                  humanoid.Health = math.huge
+                              end
+          end
+          if not _G.godattempt then
+             break
+          end
+          wait()
+        end
+    end
+ })
+
+ Section:Dropdown({
+    Text = "God Method",
+    List = {"Loop", "Infinite [!]"},
+    Callback = function(Value)
+        warn(opt)
+    end
+ })
+
+Section:Button({
+   Text = "Regenerate Health [100]",
+   Callback = function()
+    local player = game.Players.LocalPlayer
+
+    local function godModeEnabled()
+        player.Character.Humanoid.MaxHealth = math.huge
+        player.Character.Humanoid.Health = math.huge
+        player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+    end
+    
+    local function godModeDisabled()
+        player.Character.Humanoid.MaxHealth = 100
+        player.Character.Humanoid.Health = 100
+        player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+    end
+    
+    local godMode = false
+    
+    godModeEnabled()
+    wait()
+    godModeDisabled()
+   end
+})
+
+Section:Button({
+    Text = "Commit Suicide",
+    Callback = function()
+        game.Player.LocalPlayer.Character.Humanoid.Health = 0
+    end
+ })
+
+ Section:Button({
+    Text = "Rejoin",
+    Callback = function()
+        game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+    end
+ })
+
+Section:Button({
+    Text = "Get: Dufflebag",
+    Callback = function()
+        game:GetService("ReplicatedStorage").Tas.Tas:FireServer(table.unpack({
+            [1] = "Equip",
+            [2] = "Tas",
+            [3] = "HumanoidRootPart",
+        }))
+    end
+ })
+
+ Section:Button({
+    Text = "Remove: Dufflebag [/]",
+    Callback = function()
+        game:GetService("ReplicatedStorage").Tas.Tas:FireServer(table.unpack({
+            [1] = "Unequip",
+            [2] = "Tas",
+            [3] = "HumanoidRootPart",
+        }))
+    end
+ })
+
+ Section:Dropdown({
+    Text = "Get Outfit",
+    List = {"Custom", "Black Suit", "White Suit", "Undercover Agent"},
+    Callback = function(Value)
+        if Value == "Custom" then
+            local args = {
+                [1] = "Clothing",
+                [2] = game:GetService("ReplicatedStorage"):WaitForChild("shirtNetwork"):WaitForChild("shirtStorage"):WaitForChild("Clothing"):WaitForChild("Boef White Long Sleeves")
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("shirtNetwork"):WaitForChild("AssignEntity"):FireServer(unpack(args))
+            
+            wait(0.1)
+            
+            args[2] = game:GetService("ReplicatedStorage"):WaitForChild("broekNetwork"):WaitForChild("broekStorage"):WaitForChild("Clothing"):WaitForChild("Dsquared2 Black Jeans with LV Belt")
+            game:GetService("ReplicatedStorage"):WaitForChild("broekNetwork"):WaitForChild("AssignEntity"):FireServer(unpack(args))
+            
+            wait(0.1)
+            
+            args[1] = "Helmet"
+            args[2] = game:GetService("ReplicatedStorage"):WaitForChild("maskerNetwork"):WaitForChild("maskerStorage"):WaitForChild("Helmet"):WaitForChild("Pion")
+            game:GetService("ReplicatedStorage"):WaitForChild("maskerNetwork"):WaitForChild("AssignEntity"):FireServer(unpack(args))
+            
+        elseif Value == "Black Suit" then
+            local args = {
+                [1] = "Clothing",
+                [2] = game:GetService("ReplicatedStorage"):WaitForChild("shirtNetwork"):WaitForChild("shirtStorage"):WaitForChild("Clothing"):WaitForChild("White Button Up w/ Black Suit [+] -")
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("shirtNetwork"):WaitForChild("AssignEntity"):FireServer(unpack(args))
+            
+            wait(0.1)
+            
+            args[2] = game:GetService("ReplicatedStorage"):WaitForChild("broekNetwork"):WaitForChild("broekStorage"):WaitForChild("Clothing"):WaitForChild("Black Coat Pants [-]")
+            game:GetService("ReplicatedStorage"):WaitForChild("broekNetwork"):WaitForChild("AssignEntity"):FireServer(unpack(args))
+            
+        elseif Value == "White Suit" then
+            local args = {
+                [1] = "Clothing",
+                [2] = game:GetService("ReplicatedStorage"):WaitForChild("shirtNetwork"):WaitForChild("shirtStorage"):WaitForChild("Clothing"):WaitForChild("White Tuxedo White Suit Spy James Bond 007 Elegant")
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("shirtNetwork"):WaitForChild("AssignEntity"):FireServer(unpack(args))
+            
+            wait(0.1)
+            
+            args[2] = game:GetService("ReplicatedStorage"):WaitForChild("broekNetwork"):WaitForChild("broekStorage"):WaitForChild("Clothing"):WaitForChild("White Tuxedo White Suit Spy James Bond 007 Pants")
+            game:GetService("ReplicatedStorage"):WaitForChild("broekNetwork"):WaitForChild("AssignEntity"):FireServer(unpack(args))
+            
+        elseif Value == "Undercover Agent" then
+            local args = {
+                [1] = "Clothing",
+                [2] = game:GetService("ReplicatedStorage"):WaitForChild("polNetwork"):WaitForChild("POLStorage"):WaitForChild("Clothing"):WaitForChild("Undercover")
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("polNetwork"):WaitForChild("AssignEntity"):FireServer(unpack(args))
+        end
+    end
+})
+
+
+ Section2:Button({
+    Text = "Air Ricochet",
+    Callback = function()
+        local SeatPart = GetSeatPart()
+        if typeof(SeatPart) == 'Instance' and SeatPart:IsA("VehicleSeat") then
+            SeatPart.AssemblyLinearVelocity = -SeatPart.AssemblyLinearVelocity
+        end
+    end
+ })
+
+ Section2:Button({
+    Text = "Air Fling",
+    Callback = function()
+        local SeatPart = GetSeatPart()
+        if typeof(SeatPart) == 'Instance' and SeatPart:IsA("VehicleSeat") then
+            local X = math.random(0, 1)
+            if X == 0 then
+                X = -1
+            else
+                X = 1
+            end
+            local Y = 1e3 * X
+            SeatPart.AssemblyLinearVelocity = Vector3.new(Y, Y, Y)
+        end
+    end
+ })
+
+ Section2:Check({
+    Text = "Glitch",
+    Callback = function(X)
+        if X == true then
+            AC6F.GlitchConnection = Heartbeat.Event:Connect(function()
+                local SeatPart = GetSeatPart()
+                if typeof(SeatPart) == 'Instance' and SeatPart:IsA("VehicleSeat") then
+                    local x = math.random(-500, 500)
+                    local y = math.random(-500, 500)
+                    local z = math.random(-500, 500)
+
+                    SeatPart.AssemblyLinearVelocity = Vector3.new(x, y, z)
+                end
+            end)
+        else
+            pcall(function() AC6F.GlitchConnection:Disconnect() end)
+        end
+    end
+ })
+ 
+
+ Section3:Label({
+    Text = "Status: Undetected",
+    Color = Color3.fromRGB(100, 190, 31)
+ })
+
+ Section3:Button({
+    Text = "Attempt To Remove: AntiCheat",
+    Callback = function()
+        NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+                NotificationLibrary:SendNotification("Info", "Error: Bypass Is Already Enabled [On Startup]", 7)
+    end
+ })
+
+ Section3:Button({
+    Text = "Attempt To Remove: Cooldowns",
+    Callback = function()
+        game:GetService("Workspace")["Kassa Overval Systeem"].Kassa.Kassa.Cooldown:Destroy()
+            game:GetService("Workspace")["Kassa Overval Systeem"].Kassa.Kassa.Cooldown:Destroy()
+            game:GetService("Workspace")["Kassa Overval Systeem"].Kassa.Kassa.Cooldown:Destroy()
+            game:GetService("Workspace").Plank11.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank12.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank8.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank9.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank7.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank4.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank5.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank6.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank3.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank2.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank1.Trigger.Cooldown:Destroy()
+            game:GetService("Workspace").Plank10.Trigger.Cooldown:Destroy()
+    end
+ })
+
+ Section3:Check({
+    Text = "Infinite Jump",
+    Callback = function(Value)
+        _G.infinjump = (Value)
+
+        -- Get the local player and their mouse
+        local player = game:GetService("Players").LocalPlayer
+        local mouse = player:GetMouse()
+        
+        -- Listen for the spacebar key press to jump repeatedly
+        mouse.KeyDown:connect(function(key)
+            if _G.infinjump and key:byte() == 32 then
+                local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+                if humanoid then
+                    humanoid:ChangeState("Jumping")
+                    wait(0.1)
+                    humanoid:ChangeState("Seated")
+                end
+            end
+        end)
+    end
+ })
+
+ Section3:Check({
+    Text = "No-Clip [!]",
+    Callback = function(Value)
+        if (Value) then
+            NoclipLoop = game:GetService("RunService").Stepped:Connect(function()
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("BasePart") and v.CanCollide == true then
+                        v.CanCollide = false
+                    end
+                end
+            end)
+        elseif Value == false and NoclipLoop then
+            NoclipLoop:Disconnect()
+        end
+    end
+ })
+
+ Section3:Check({
+    Text = "Superman Mode [!!!]",
+    Callback = function(Value)
+        _G.superman = Value
+
+        while true do
+          if _G.superman then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 230
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = 230
+          end
+          if not _G.superman then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+          end
+          wait()
+        end
+    end
+ })
+
+ Section3:Check({
+    Text = "Disco Mode [LocalChar]",
+    Callback = function(Value)
+        _G.rainbowaura = Value
+
+        if _G.rainbowaura then
+            local function rainbowHighlight()
+                local lp = game:GetService("Players").LocalPlayer
+        
+                while _G.rainbowaura do
+                    local Highlight = Instance.new("Highlight")
+                    Highlight.FillColor = Color3.fromHSV(tick() % 1, 1, 0.80)
+                    Highlight.OutlineColor = Color3.fromHSV(tick() % 1, 1, 0.80)
+                    Highlight.FillTransparency = 0.40
+                    Highlight.Parent = lp.Character
+                    wait(0.1)
+                    Highlight:Destroy()
+                end
+            end
+        
+            -- Start the rainbow aura loop.
+            rainbowHighlight()
+        else
+            -- If rainbow aura is not enabled, call the NormalCharacter function.
+            NormalCharacter()
+        end
+    end
+ })
+
+ repeat wait() 
+ until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid") 
+ local mouse = game.Players.LocalPlayer:GetMouse() 
+ repeat wait() until mouse
+ local player = game.Players.LocalPlayer
+ local mouse = player:GetMouse()
+ 
+ local plr = player
+ local torso = nil
+ local flying = false
+ local deb = true
+ local ctrl = {f = 0, b = 0, l = 0, r = 0}
+ local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+ local maxspeed = 50
+ local speed = 0
+ local flySpeed = 1 -- Default fly speed
+ 
+ function Fly()
+     local character = plr.Character
+     if character then
+         torso = character:WaitForChild("HumanoidRootPart")
+         local bg = Instance.new("BodyGyro", torso)
+         bg.P = 9e4
+         bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+         bg.cframe = torso.CFrame
+         local bv = Instance.new("BodyVelocity", torso)
+         bv.velocity = Vector3.new(0, 0.1, 0)
+         bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+         repeat
+             wait()
+             plr.Character.Humanoid.PlatformStand = true
+             if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+                 speed = speed + (0.5 + (speed / maxspeed)) * flySpeed
+                 if speed > maxspeed * flySpeed then
+                     speed = maxspeed * flySpeed
+                 end
+             elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+                 speed = speed - 1
+                 if speed < 0 then
+                     speed = 0
+                 end
+             end
+             if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+                 bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f + ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l + ctrl.r, (ctrl.f + ctrl.b) * 0.2, 0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p)) * speed
+                 lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+             elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+                 bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f + lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l + lastctrl.r, (lastctrl.f + lastctrl.b) * 0.2, 0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p)) * speed
+             else
+                 bv.velocity = Vector3.new(0, 0.1, 0)
+             end
+             bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f + ctrl.b) * 50 * speed / (maxspeed * flySpeed)), 0, 0)
+         until not flying
+         ctrl = {f = 0, b = 0, l = 0, r = 0}
+         lastctrl = {f = 0, b = 0, l = 0, r = 0}
+         speed = 0
+         bg:Destroy()
+         bv:Destroy()
+         plr.Character.Humanoid.PlatformStand = false
+     end
+ end
+ 
+ local function StartFlying()
+     if flying then
+         return
+     end
+     flying = true
+     Fly()
+ end
+ 
+ local function StopFlying()
+     if not flying then
+         return
+     end
+     flying = false
+ end
+ 
+ mouse.KeyDown:Connect(function(key)
+     if key:lower() == "e" then
+         StartFlying()
+     elseif key:lower() == "w" then
+         ctrl.f = 1
+     elseif key:lower() == "s" then
+         ctrl.b = -1
+     elseif key:lower() == "a" then
+         ctrl.l = -1
+     elseif key:lower() == "d" then
+         ctrl.r = 1
+     end
+ end)
+ 
+ mouse.KeyUp:Connect(function(key)
+     if key:lower() == "e" then
+         StopFlying()
+     elseif key:lower() == "w" then
+         ctrl.f = 0
+     elseif key:lower() == "s" then
+         ctrl.b = 0
+     elseif key:lower() == "a" then
+         ctrl.l = 0
+     elseif key:lower() == "d" then
+         ctrl.r = 0
+     end
+ end)
+ 
+ local function Unfly()
+     StopFlying()
+ end
+ 
+ local function HandleFlyCommand(Arguments, Speaker)
+     if Arguments[1] then
+         local newFlySpeed = tonumber(Arguments[1])
+         if newFlySpeed and newFlySpeed > 0 then
+             flySpeed = newFlySpeed
+             Speaker:SendSystemMessage("Fly speed set to " .. flySpeed, Color3.fromRGB(255, 255, 0))
+         else
+             Speaker:SendSystemMessage("Invalid fly speed value.", Color3.fromRGB(255, 0, 0))
+         end
+     else
+         StartFlying()
+     end
+ end
+ 
+ local function HandleUnflyCommand(Arguments, Speaker)
+     Unfly()
+ end
+
+ Section3:Check({
+    Text = "Flight",
+    Callback = function(Value)
+        if Value then
+            HandleFlyCommand({}, game.Players.LocalPlayer) -- Start flying when the switch is turned on
+        else
+            HandleUnflyCommand({}, game.Players.LocalPlayer) -- Stop flying when the switch is turned off
+        end
+    end
+ })
+
+    -- Floating Part
+local Part = Instance.new("Part")
+Part.Size = Vector3.new(5, 1, 5)
+Part.Parent = game:GetService("Workspace")
+Part.Anchored = true
+Part.Transparency = 1
+
+ Section3:Check({
+    Text = "Float",
+    Callback = function(Value)
+        getgenv().Float = Value
+        if Float == true then
+            spawn(function()
+                while Float == true do
+                    Part.CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, -4, 0)
+                    task.wait(.05)
+                end
+            end)
+        end
+        if Float == false then
+            Part.CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 999, 0)
+        end
+    end
+ })
+
+ Section3:Check({
+    Text = "Spin-Bot [!!!]",
+    Callback = function(Value)
+        _G.spinner = (Value)
+    end
+ })
+
+   --// Under all
+local L_165_ = false
+local L_166_ = game:GetService("UserInputService")
+
+L_166_.InputBegan:Connect(function(L_167_arg0, L_168_arg1)
+    if _G.enabled and L_165_ == false then
+        L_165_ = true
+        wait()
+        getgenv().urspeed = 500
+        local L_169_ = game.Players.LocalPlayer.Character
+        while wait() and _G.enabled do
+            L_169_.HumanoidRootPart.CFrame = L_169_.HumanoidRootPart.CFrame * CFrame.Angles(0, math.rad(urspeed), 0)
+        end
+        L_165_ = false
+        getgenv().urspeed = 0
+    end
+end)
+
+game:GetService('RunService').Stepped:connect(function()
+    if (_G.enabled == false) then
+        stopTracks();
+    end
+end)
+
+
+ Section3:Check({
+    Text = "Enable WalkSpeed Change",
+    Callback = function(Value)
+        walkspeedEnabled = Value
+        if not Value then
+            game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 16
+        end
+    end
+ })
+
+ Section3:Check({
+    Text = "Enable JumpPower Change",
+    Callback = function(Value)
+        jumppowerEnabled = Value
+            if not Value then
+                game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = 50
+            end
+    end
+ })
+ 
+ Section4:Slider({
+    Text = "Flight Speed [/]",
+    Minimum = 1,
+    Default = 50,
+    Maximum = 100,
+    Callback = function(Value)
+        warn(n)
+    end
+ })
+
+ Section4:Slider({
+    Text = "Spin Speed",
+    Minimum = 100,
+    Default = 500,
+    Maximum = 1500,
+    Callback = function(Value)
+        if _G.enabled then
+            getgenv().urspeed = Value
+        else
+            getgenv().urspeed = 0
+        end --// Speed
+    end
+ })
+
+ Section4:Slider({
+    Text = "WalkSpeed Value",
+    Minimum = 16,
+    Default = 16,
+    Maximum = 500,
+    Callback = function(Value)
+        if walkspeedEnabled then
+            game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = Value
+        end
+    end
+ })
+
+ Section4:Slider({
+    Text = "JumpPower Value",
+    Minimum = 50,
+    Default = 50,
+    Maximum = 500,
+    Callback = function(Value)
+        if jumppowerEnabled then
+            game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = Value
+        end
+    end
+ })
+
+Section4:Slider({
+    Text = "Field of View",
+    Minimum = 70,
+    Default = 70,
+    Maximum = 120,
+    Callback = function(Value)
+        game:GetService("Workspace").Camera.FieldOfView = Value
+    end
+ })
+
+ local Section = Tab2:Section({
+    Text = "All Player [!!!]",
+    Side = "Left"
+ })
+
+ Section:Button({
+    Text = "Kill All [Kicks]",
+    Callback = function()
+        for k, v in pairs(game.Players:GetChildren()) do 
+            local ohInstance1 = workspace[v.Name].Humanoid
+            game:GetService("ReplicatedStorage").ACS_Engine.Eventos.CreateOwner:FireServer(ohInstance1)
+            local ohInstance1 = workspace[v.Name].Humanoid
+            local ohNumber2 = math.huge
+            local ohNumber3 = 0
+            local ohNumber4 = 0
+            local ohString5 = "{e012c8d3-d924-42c7-9f1b-a05f716bf7aa}-439403718"
+            game:GetService("ReplicatedStorage").ACS_Engine.Eventos.Damage:FireServer(ohInstance1, ohNumber2, ohNumber3, ohNumber4, ohString5)
+    end
+    wait(0.2)
+    game.Players.LocalPlayer:kick("Fr0zenL4ke.ez | Kill All Worked... Now Rejoin.")
+    end
+ })
+
+ Section:Check({
+    Text = "Client Bring All",
+    Callback = function(Value)
+        local LocalPlayer = game:GetService("Players").LocalPlayer
+        _G.active = Value -- Set to true when you want the teleportation to occur
+        
+        game:GetService("RunService").RenderStepped:Connect(function()
+            if _G.active then
+                local localPlayer = game.Players.LocalPlayer
+                local teleportPosition = localPlayer.Character.HumanoidRootPart.CFrame.Position + localPlayer.Character.HumanoidRootPart.CFrame.lookVector * 5 -- Adjust the distance as needed
+                local players = game.Players:GetPlayers()
+        
+                for i, player in ipairs(players) do
+                    if player ~= localPlayer then
+                        local offset = Vector3.new(0, 0, i * 3) -- Adjust the spacing between players
+                        player.Character.HumanoidRootPart.CFrame = CFrame.new(teleportPosition + offset)
+                    end
+                end
+            end
+        end)
+    end
+ })
+
+ local Section1 = Tab2:Section({
+    Text = "Single Client",
+    Side = "Right"
+ })
+
+ local selectedPlayer = nil
+
+ local playerValues = {"None Selected"}
+ 
+ local function updatePlayerValues()
+     playerValues = {"None Selected"}
+     for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
+         table.insert(playerValues, player.Name)
+     end
+ end
+ 
+ updatePlayerValues()
+ 
+ local function updateDropdownValues()
+     Options.Showserver:SetValues(playerValues)
+ end
+
+ Section1:Dropdown({
+    Text = "Select Your Target.",
+    List = playerValues,
+    Callback = function(val)
+        selectedPlayer = val
+    end
+ })
+
+ game:GetService("Players").PlayerAdded:Connect(function(player)
+    updatePlayerValues()
+    updateDropdownValues()
+end)
+
+game:GetService("Players").PlayerRemoving:Connect(function(player)
+    updatePlayerValues()
+    updateDropdownValues()
+end)
+
+
+
+Section1:Check({
+    Text = "View Target",
+    Callback = function(Value)
+        if Value then
+            local playerName = selectedPlayer
+
+            local player = nil
+            for _, p in pairs(game:GetService("Players"):GetPlayers()) do
+                if string.find(p.Name:lower(), playerName:lower()) then
+                    player = p
+                    break
+                end
+            end
+
+            if player then
+                game.Workspace.CurrentCamera.CameraSubject = player.Character.Humanoid
+            else
+                local player = game:GetService("Players").LocalPlayer
+                game.Workspace.CurrentCamera.CameraSubject = player.Character.Humanoid
+            end
+        else
+            game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character.Humanoid
+        end
+    end
+ })
+
+ Section1:Button({
+    Text = "Info Of Target",
+    Callback = function()
+        local player = game.Players.LocalPlayer -- Assuming you're referencing the local player
+        local selectedPlayer = ... -- You'll need to define or get the selectedPlayer variable
+
+        local leaderstats = player:FindFirstChild("leaderstats")
+        if leaderstats then
+            local leaderstatsInfo = string.format("Contant Geld: %d\nBank Geld: %d\nZwart Geld: %d",
+                leaderstats.Geld.Value,
+                leaderstats.Bank.Value,
+                leaderstats.Zwartgeld.Value
+            )
+
+            local NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+            NotificationLibrary:SendNotification("Info", "Player Name: " .. selectedPlayer.Name .. "\nBank: " .. leaderstats.Bank.Value .. "\nContant: " .. leaderstats.Geld.Value .. "\nZwartgeld: " .. leaderstats.Zwartgeld.Value, 7)
+        end
+    end
+})
+
+
+
+
+ Section1:Check({
+    Text = "Loop TP > Target",
+    Callback = function(Value)
+        loopTeleport = Value
+        if loopTeleport then
+            while loopTeleport do
+                -- Replace "TO" with the partial or full username of the player you want to teleport to
+                local partialName = selectedPlayer
+                local Players = game:GetService("Players")
+                local player = nil
+                for _, p in ipairs(Players:GetPlayers()) do
+                    if string.find(string.lower(p.Name), string.lower(partialName)) then
+                        player = p
+                        break
+                    end
+                end
+                if player then
+                    local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+                    local p2 = player.Name
+                    local pos = p1.CFrame
+                    p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+                else
+                    print("Could not find player with name containing '" .. partialName .. "'")
+                end
+                wait() -- wait 1 second before teleporting again
+            end
+        else
+            print("Uit")
+        end
+    end
+ })
+
+ Section1:Button({
+    Text = "TP > Target",
+    Callback = function()
+       -- Replace "TO" with the partial or full username of the player you want to teleport to
+local partialName = selectedPlayer
+
+local Players = game:GetService("Players")
+local player = nil
+for _, p in ipairs(Players:GetPlayers()) do
+if string.find(string.lower(p.Name), string.lower(partialName)) then
+player = p
+break
+end
+end
+
+if player then
+local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+local p2 = player.Name
+local pos = p1.CFrame
+p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+else
+    print("Could not find player with name containing '" .. partialName .. "'")
+    end
+    end
+ })
+
+ Section1:Button({
+    Text = "Player > Me [Can Kill, Client]",
+    Callback = function()
+        local playerName = selectedPlayer  -- Replace with the partial name you want to use
+
+        function findPlayerByName(selectedPlayer)
+            for _, player in pairs(game.Players:GetPlayers()) do
+                if string.find(string.lower(player.Name), string.lower(selectedPlayer)) then
+                    return player
+                end
+            end
+            return nil
+        end
+    
+        local targetPlayer = findPlayerByName(playerName)
+        if targetPlayer then
+            local name = targetPlayer.Name
+    
+            function cbringTarget()
+                repeat
+                    task.wait()
+                    game.Players[name].Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Position + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 3.6)
+                until game.Players[name].Character.Humanoid.Health == 0
+            end
+    
+            cbringTarget()
+        else
+            print("Player not found!")
+        end
+    end
+ })
+
+ Section1:Button({
+    Text = "Player > Me [Tiewraps Needed]",
+    Callback = function()
+        NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+        NotificationLibrary:SendNotification("Info", "Reapers Bring: When You TP To Target Hold E", 5)
+           wait(0.5)
+           NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+           NotificationLibrary:SendNotification("Info", "Reapers Bring: When You TP To Target Hold E", 5)
+           wait(0.5)
+           NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+           NotificationLibrary:SendNotification("Info", "Reapers Bring: GET READY", 5)
+        wait(3)
+       
+       -- Store the original position before the loop
+       local originalCFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+       
+       -- Check if the fist tool exists in the player's backpack
+       local playerBackpack = game:GetService("Players").LocalPlayer.Backpack
+       local fistTool = playerBackpack:FindFirstChild("Tiewraps")  -- Change "Tiewraps" to the actual tool name
+       if fistTool then
+           -- Equip the fist tool
+           game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(fistTool)  -- Change "TiewrapsTool" to "fistTool"
+       end
+       
+       -- Username selector: Find the selected player in the game
+       local selectedPlayer = selectedPlayer  -- Change "UsernameHere" to the actual username
+       local selectedPlayerObject = game:GetService("Players"):FindFirstChild(selectedPlayer)
+       if selectedPlayerObject then
+           local startTime = tick()  -- Get the current time in seconds
+           local duration = 4  -- Duration of the loop in seconds
+       
+           while tick() - startTime < duration do
+               -- Teleport to the selected player
+               game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = selectedPlayerObject.Character.HumanoidRootPart.CFrame
+               wait() -- Wait for the next loop iteration
+           end
+       end
+       
+       -- Return to the original position
+       game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = originalCFrame
+       
+    end
+ })
+
+
+
+
+ Section1:Button({
+    Text = "Fling Target",
+    Callback = function()
+        local playerName = selectedPlater -- Replace with the partial name or display name you want to search for
+    
+        local Target = FindPlayerByPartialName(playerName)
+        if Target then
+            local oldCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    
+            local Thrust = Instance.new('BodyThrust', game.Players.LocalPlayer.Character.HumanoidRootPart)
+            Thrust.Force = Vector3.new(9999, 9999, 9999)
+            Thrust.Name = "YeetForce"
+    
+            repeat
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+                Thrust.Location = Target.Character.HumanoidRootPart.Position
+                game:FindService("RunService").Heartbeat:wait()
+            until not Target.Character:FindFirstChild("Head")
+    
+            wait(3)  -- wait for 3 seconds
+    
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldCFrame
+    
+            Thrust:Destroy() -- remove the BodyThrust instance
+        else
+            notif("No player selected")
+        end
+    end
+ })
+
+ Section1:Button({
+    Text = "Tiewrap Abuse",
+    Callback = function()
+          -- Function to find a player by partial or display name
+local function findPlayerByName(playerName)
+    local players = game:GetService("Players"):GetPlayers()
+    
+    for _, player in pairs(players) do
+        if player.Name:lower():match(playerName:lower()) or player.DisplayName:lower():match(playerName:lower()) then
+            return player
+        end
+    end
+    
+    return nil
+end
+
+-- Check if the player has the tool "Tiewraps" in their backpack
+local player = game:GetService("Players").LocalPlayer
+local backpack = player.Backpack
+local toolName = "Tiewraps"  -- Change to the name of your tool
+local tool = backpack:FindFirstChild(toolName)
+
+if tool then
+    -- Equip the tool
+    player.Character:WaitForChild("Humanoid").ToolInHand = tool
+
+    -- Notify the player
+    local NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+    NotificationLibrary:SendNotification("Info", "Reaper's Bring: When You TP To Target Hold E", 5)
+    wait(0.5)
+    NotificationLibrary:SendNotification("Info", "Reaper's Bring: GET READY", 5)
+    wait(3)
+
+    -- Player name to search for (can be partial or display name)
+    local playerName = selectedPlayer -- Change to the desired player name
+    local selectedPlayerObject = findPlayerByName(playerName)
+
+    if selectedPlayerObject then
+        local startTime = tick()  -- Get the current time in seconds
+        local duration = 4  -- Duration of the loop in seconds
+
+        while tick() - startTime < duration do
+            -- Teleport to the selected player
+            player.Character:MoveTo(selectedPlayerObject.Character.HumanoidRootPart.Position)
+            wait(0.1) -- Wait for the next loop iteration
+        end
+    end
+
+    -- Return to the original position
+    player.Character:MoveTo(originalCFrame.p)
+else
+    -- Notify the player that they need the tool
+    local NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+    NotificationLibrary:SendNotification("Info", "Reaper's Bring: You Need Tiewraps Mate", 5)
+end
+    end
+ })
+
+
+
+ Section1:Button({
+    Text = "Give Target 100$ [/]",
+    Callback = function()
+        warn("Settings Reseted.")
+    end
+ })
+
+ Section1:Check({
+    Text = "Loop Give Target 1$ [/]",
+    Callback = function(bool)
+        warn(bool)
+    end
+ })
+
+ local Section = Tab3:Section({
+    Text = "Weapon Spawner + Modifier",
+    Side = "Left"
+ })
+
+ Section:Button({
+    Text = "Spawn-In Random Gun",
+    Callback = function()
+        local WeaponSelection = {
+            "tommygun", "AK-47 met suppressor", "AKM", "AKM met suppressor", "AKS-74U Met Suppressor",
+            "BE SIG MCX", "Desert Eagle", "Draco", "Glock 17", "Gold AKM", "Gold Glock17", "Gold Remington 870",
+            "M17", "M9", "MP5SD", "Makarov", "Remington 870", "Revolver", "Rode AKM", "Rode Glock17",
+            "Rode Skorpion", "SIG MCX VIRTUS", "Shield", "Skorpion", "UZI", "Walther P99", "XM2010"
+        }
+
+        local randomIndex = math.random(1, #WeaponSelection)
+        local randomWeapon = WeaponSelection[randomIndex]
+
+        local args = { [1] = "Change", [2] = randomWeapon, [3] = "Inv" }
+        game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+    end
+})
+
+
+ Section:Button({
+    Text = "Spawn-In Tiewraps",
+    Callback = function()
+        local args = { [1] = "Change", [2] = "Tiewraps", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+
+    end
+ })
+
+ Section:Button({
+    Text = "Overpowered Gun",
+    Callback = function()
+        local _player = game:GetService("Players").LocalPlayer
+            local gun_names = {
+                "AK-47 met suppressor",
+                "tommygun",
+                "AKM",
+                "AKM met suppressor",
+                "AKS-74U Met Suppressor",
+                "BE SIG MCX",
+                "Desert Eagle",
+                "Glock 17",
+                "Gold Glock17",
+                "Gold AKM",
+                "Gold Remington 870",
+                "M17",
+                "M9",
+                "MP5SD",
+                "Makarov",
+                "Remington 870",
+                "Revolver",
+                "Rode AKM",
+                "Rode Glock17",
+                "Rode Skorpion",
+                "SIG MCX VIRTUS",
+                "Shield",
+                "Skorpion",
+                "UZI",
+                "Walther P99",
+                "XM2010"
+            }
+            
+            local function applyModificationsToGun(gun_name)
+                local _gun = _player.Backpack:FindFirstChild(gun_name)
+                if _gun then
+                    local _script = _gun.ACS_Modulo.Variaveis:FindFirstChild("Settings")
+                    if _script then
+                        local _module = require(_script)
+            
+                        local function rapidFire()
+                            _module["Mode"] = "Auto"
+                        end 
+            
+                        local function oneShot()
+                            _module["LimbsDamage"] = { 900, 900 } 
+                            _module["TorsoDamage"] = { 900, 900 }
+                            _module["HeadDamage"] = { 900, 900 }
+                        end
+            
+                        local function noSpread()
+                            _module["MinSpread"] = 0
+                            _module["axSpread"] = 0
+                        end
+            
+                        local function noRecoil()
+                            _module["SwayBase"] = 0
+                            _module["VRecoil"] = { 0, 0 }
+                            _module["HRecoil"] = { 0, 0 }
+                            _module["AimRecoilReduction"] = 50
+                            _module["MinRecoilPower"] = 0
+                            _module["MaxRecoilPower"] = 0
+                            _module["RecoilPowerStepAmount"] = 0
+                            _module["RecoilPunch"] = 0
+                            _module["AimInaccuracyStepAmount"] = 0
+                            print("done")
+                        end
+            
+                        noRecoil()
+                        noSpread()
+                        oneShot()
+                        rapidFire()
+                    end
+                end
+            end
+            
+            for _, gun_name in ipairs(gun_names) do
+                applyModificationsToGun(gun_name)
+            end
+    end
+ })
+
+ Section:Button({
+    Text = "No-Recoil",
+    Callback = function()
+        local _player = game:GetService("Players").LocalPlayer
+
+        local weaponNames = {
+            "AK-47 met suppressor",
+            "AKM",
+            "AKM met suppressor",
+            "AKS-74U Met Suppressor",
+            "BE SIG MCX",
+            "Desert Eagle",
+            "Glock 17",
+            "tommygun",
+            "Gold Glock17",
+            "Gold AKM",
+            "Gold Remington 870",
+            "M17",
+            "M9",
+            "MP5SD",
+            "Makarov",
+            "Remington 870",
+            "Revolver",
+            "Rode AKM",
+            "Rode Glock17",
+            "Rode Skorpion",
+            "SIG MCX VIRTUS",
+            "Shield",
+            "Skorpion",
+            "UZI",
+            "Walther P99",
+            "XM2010"
+        }
+    
+        local function modifyWeaponModule(weapon)
+            local _gun = _player.Backpack:FindFirstChild(weapon)
+            if _gun then
+                local _module = _gun.ACS_Modulo:FindFirstChild("Settings")
+                if _module then
+                    _module = require(_module)
+    
+                    local function noSpread()
+                        _module.MinSpread = 0
+                        _module.axSpread = 0
+                    end
+    
+                    local function noRecoil()
+                        _module.SwayBase = 0
+                        _module.VRecoil = {0, 0}
+                        _module.HRecoil = {0, 0}
+                        _module.AimRecoilReduction = 50
+                        _module.MinRecoilPower = 0
+                        _module.MaxRecoilPower = 0
+                        _module.RecoilPowerStepAmount = 0
+                        _module.RecoilPunch = 0
+                        _module.AimInaccuracyStepAmount = 0
+                        print("Done modifying", weapon)
+                    end
+    
+                    noRecoil()
+                    noSpread()
+                end
+            end
+        end
+    
+        for _, weaponName in ipairs(weaponNames) do
+            modifyWeaponModule(weaponName)
+        end
+    end
+ })
+
+ Section:Button({
+    Text = "FreeZe Ammo",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+
+        local function freezeAmmo(weaponName)
+            local Backpack = player.Backpack
+            local Weapon = Backpack:FindFirstChild(weaponName)
+        
+            if Weapon then
+                local ACS_Modulo = Weapon:WaitForChild("ACS_Modulo")
+                local Variaveis = ACS_Modulo:WaitForChild("Variaveis")
+                
+                local StoredAmmoValue = Variaveis.StoredAmmo.Value
+                local AmmoValue = Variaveis.Ammo.Value
+                
+                while true do
+                    Variaveis.StoredAmmo.Value = StoredAmmoValue
+                    Variaveis.Ammo.Value = AmmoValue
+                    wait(0.1) -- Adjust the wait time as needed
+                end
+            else
+                warn("Weapon not found:", weaponName)
+            end
+        end
+        
+        local weaponsToFreeze = {
+            "AK-47 met suppressor",
+             "tommygun",
+            "AKM",
+            "AKM met suppressor",
+            "AKS-74U Met Suppressor",
+            "BE SIG MCX",
+            "Desert Eagle",
+            "Glock 17",
+            "Gold Glock17",
+            "Gold AKM",
+            "Gold Remington 870",
+            "M17",
+            "M9",
+            "MP5SD",
+            "Makarov",
+            "Remington 870",
+            "Revolver",
+            "Rode AKM",
+            "Rode Glock17",
+            "Rode Skorpion",
+            "SIG MCX VIRTUS",
+            "Shield",
+            "Skorpion",
+            "UZI",
+            "Walther P99",
+            "XM2010"
+        }
+        
+        for _, weaponName in ipairs(weaponsToFreeze) do
+            spawn(function()
+                freezeAmmo(weaponName)
+            end)
+        end
+    end
+ })
+
+ Section:Button({
+    Text = "Anti-Jam",
+    Callback = function()
+        local weapons = {
+            "AK-47 met suppressor",
+            "tommygun",
+            "AKM",
+            "AKM met suppressor",
+            "AKS-74U Met Suppressor",
+            "BE SIG MCX",
+            "Desert Eagle",
+            "Glock 17",
+            "Gold Glock17",
+            "Gold AKM",
+            "Gold Remington 870",
+            "M17",
+            "M9",
+            "MP5SD",
+            "Makarov",
+            "Remington 870",
+            "Revolver",
+            "Rode AKM",
+            "Rode Glock17",
+            "Rode Skorpion",
+            "SIG MCX VIRTUS",
+            "Shield",
+            "Skorpion",
+            "UZI",
+            "Walther P99",
+            "XM2010"
+        }
+        
+        -- Function to set Emperrado property to false for all weapons
+        local function setEmperradoFalse()
+            while wait() do
+                for _, weaponName in ipairs(weapons) do
+                    local weapon = game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(weaponName)
+                    if weapon then
+                        local acsModulo = weapon:FindFirstChild("ACS_Modulo")
+                        if acsModulo then
+                            acsModulo.Variaveis.Emperrado = false
+                        end
+                    end
+                end
+            end
+        end
+        setEmperradoFalse()
+        
+    end
+ })
+
+ local Players = game:GetService("Players")
+ local LocalPlayer = Players.LocalPlayer
+ local Backpack = LocalPlayer.Backpack
+ 
+ local weaponNames = {
+     "AK-47 met suppressor",
+     "tommygun",
+     "AKM",
+     "AKM met suppressor",
+     "AKS-74U Met Suppressor",
+     "BE SIG MCX",
+     "Desert Eagle",
+     "Glock 17",
+     "Gold Glock17",
+     "Gold AKM",
+     "Gold Remington 870",
+     "M17",
+     "M9",
+     "MP5SD",
+     "Makarov",
+     "Remington 870",
+     "Revolver",
+     "Rode AKM",
+     "Rode Glock17",
+     "Rode Skorpion",
+     "SIG MCX VIRTUS",
+     "Shield",
+     "Skorpion",
+     "UZI",
+     "Walther P99",
+     "XM2010"
+ }
+ 
+ local function modifyWeaponModule(weapon)
+     local gun = Backpack:FindFirstChild(weapon)
+     if gun then
+         local script = gun:FindFirstChild("ACS_Modulo"):FindFirstChild("Variaveis"):FindFirstChild("Settings")
+         if script then
+             local module = require(script)
+             module["Mode"] = "Auto"
+         end
+     end
+ end
+
+ Section:Check({
+    Text = "Automatic",
+    Callback = function(Value)
+        if Value == true then
+            for _, weaponName in ipairs(weaponNames) do
+                modifyWeaponModule(weaponName)
+            end
+        elseif Value == false then
+            -- Handle setting the mode to "Semi" when the switch is turned off
+        end
+    end
+ })
+ 
+ --// Loading ESP Modules
+local espLib = {
+    drawings = {},
+    instances = {},
+    espCache = {},
+    chamsCache = {},
+    objectCache = {},
+    conns = {},
+    whitelist = {}, -- insert string that is the player's name you want to whitelist (turns esp color to whitelistColor in options)
+    blacklist = {}, -- insert string that is the player's name you want to blacklist (removes player from esp)
+    options = {
+        enabled = true,
+        minScaleFactorX = 1,
+        maxScaleFactorX = 10,
+        minScaleFactorY = 1,
+        maxScaleFactorY = 10,
+        boundingBox = false, -- WARNING | Significant Performance Decrease when true
+        boundingBoxDescending = false,
+        font = 2,
+        fontSize = 13,
+        limitDistance = false,
+        maxDistance = 1000,
+        visibleOnly = false,
+        teamCheck = false,
+        teamColor = false,
+        fillColor = nil,
+        whitelistColor = Color3.new(1, 0, 0),
+        outOfViewArrows = false,
+        outOfViewArrowsFilled = false,
+        outOfViewArrowsSize = 25,
+        outOfViewArrowsRadius = 100,
+        outOfViewArrowsColor = Color3.new(1, 1, 1),
+        outOfViewArrowsTransparency = 0.5,
+        outOfViewArrowsOutline = false,
+        outOfViewArrowsOutlineFilled = false,
+        outOfViewArrowsOutlineColor = Color3.new(1, 1, 1),
+        outOfViewArrowsOutlineTransparency = 1,
+        names = false,
+        nameTransparency = 1,
+        nameColor = Color3.new(1, 1, 1),
+        boxes = false,
+        boxesTransparency = 1,
+        boxesColor = Color3.new(1, 0, 0),
+        boxFill = false,
+        boxFillTransparency = 0.5,
+        boxFillColor = Color3.new(1, 0, 0),
+        healthBars = false,
+        healthBarsSize = 1,
+        healthBarsTransparency = 1,
+        healthBarsColor = Color3.new(0, 1, 0),
+        healthText = false,
+        healthTextTransparency = 1,
+        healthTextSuffix = "%",
+        healthTextColor = Color3.new(1, 1, 1),
+        distance = false,
+        distanceTransparency = 1,
+        distanceSuffix = " Studs",
+        distanceColor = Color3.new(1, 1, 1),
+        tracers = false,
+        tracerTransparency = 1,
+        tracerColor = Color3.new(1, 1, 1),
+        tracerOrigin = "Bottom", -- Available [Mouse, Top, Bottom]
+        chams = false,
+        chamsFillColor = Color3.new(1, 0, 0),
+        chamsFillTransparency = 0.5,
+        chamsOutlineColor = Color3.new(),
+        chamsOutlineTransparency = 0
+    },
+ };
+ local espLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Sirius/request/library/esp/esp.lua'),true))()
+ -------------------------Bypass by iris
+ getgenv().BypassSettings = {
+   ["Crystal AntiCheat"] = false,
+   ["Adonis"] = false,
+ 
+   ["Anti-Obfuscated Scripts"] = false,-- CANNOT BE ENABLED WITH CRYSTAL This will block any obfuscated script on the client from running (Not executed by your exploit thought)
+   ["Random"] = false, -- Will disallow scripts calling, GetPropertyChanged signal on WalkSpeed, JumpPower, Gravity, Health, LogService
+ 
+   ["Enable Kill Logs"] = false, -- Say if you want to get told what's bypassed
+ }
+ 
+ loadstring(game:HttpGet("https://irisapp.ca/TheGoodSucc/iAntiCheat.lua"))()
+
+ local Section1 = Tab3:Section({
+    Text = "Visuals",
+    Side = "Right"
+ })
+
+ Section:Check({
+    Text = "Enable ESP",
+    Callback = function(Value)
+        local espfunc = Value
+        if espfunc then
+        espLib:Load()
+        end
+        if not espfunc then
+        espLib:Unload()
+        end
+    end
+ })
+
+ Section:Check({
+    Text = "Name ESP",
+    Callback = function(Value)
+        espLib.options.names = Value
+    end
+ })
+
+ Section:Check({
+    Text = "Box ESP",
+    Callback = function(Value)
+        espLib.options.boxes = Value
+    end
+ })
+
+ Section:Check({
+    Text = "Health ESP",
+    Callback = function(Value)
+        espLib.options.healthBars = Value
+    end
+ })
+
+ espLib.options.outOfViewArrows = false
+    espLib.options.outOfViewArrowsOutline = false
+    espLib.options.outOfViewArrowsFilled = false
+    espLib.options.outOfViewArrowsOutlineFilled = false
+    espLib.options.teamCheck = false
+    espLib.options.boxes = false
+    espLib.options.boxFill = false
+    espLib.options.healthBars = false
+    espLib.options.healthText = false
+    espLib.options.tracers = false
+    espLib.options.limitDistance = false
+    espLib.options.visibleOnly = false
+    espLib.options.chams = false
+ 
+
+
+Tab:Select()
+
+local UserInputService = game:GetService("UserInputService")
+local pphud = game.CoreGui.PPHUD
+
+local semicolonPressed = false
+
+UserInputService.InputBegan:Connect(function(input, isProcessed)
+    if input.KeyCode == Enum.KeyCode.Semicolon and not isProcessed then
+        semicolonPressed = true
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.Semicolon then
+        semicolonPressed = false
+    end
+end)
+
+while true do
+    if semicolonPressed then
+        pphud.Enabled = not pphud.Enabled
+    end
+    wait(0.0001)
+end
