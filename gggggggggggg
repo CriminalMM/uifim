@@ -740,11 +740,6 @@ Section1:Check({
     end
  })
 
- 
-
-
-
-
  Section1:Check({
     Text = "Loop TP > Target",
     Callback = function(Value)
@@ -1430,7 +1425,7 @@ local espLib = {
     Side = "Right"
  })
 
- Section:Check({
+ Section1:Check({
     Text = "Enable ESP",
     Callback = function(Value)
         local espfunc = Value
@@ -1443,21 +1438,21 @@ local espLib = {
     end
  })
 
- Section:Check({
+ Section1:Check({
     Text = "Name ESP",
     Callback = function(Value)
         espLib.options.names = Value
     end
  })
 
- Section:Check({
+ Section1:Check({
     Text = "Box ESP",
     Callback = function(Value)
         espLib.options.boxes = Value
     end
  })
 
- Section:Check({
+ Section1:Check({
     Text = "Health ESP",
     Callback = function(Value)
         espLib.options.healthBars = Value
