@@ -266,6 +266,159 @@ Section:Button({
     end
  })
 
+ Section3:Button({
+    Text = "Invisible [!] [E]",
+    Callback = function()
+
+--Settings:
+local ScriptStarted = false
+local Keybind = "E" --Set to whatever you want, has to be the name of a KeyCode Enum.
+local Transparency = true --Will make you slightly transparent when you are invisible. No reason to disable.
+local NoClip = false --Will make your fake character no clip.
+
+local Player = game:GetService("Players").LocalPlayer
+local RealCharacter = Player.Character or Player.CharacterAdded:Wait()
+
+local IsInvisible = false
+
+RealCharacter.Archivable = true
+local FakeCharacter = RealCharacter:Clone()
+local Part
+Part = Instance.new("Part", workspace)
+Part.Anchored = true
+Part.Size = Vector3.new(200, 1, 200)
+Part.CFrame = CFrame.new(0, -500, 0) --Set this to whatever you want, just far away from the map.
+Part.CanCollide = true
+FakeCharacter.Parent = workspace
+FakeCharacter.HumanoidRootPart.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
+
+for i, v in pairs(RealCharacter:GetChildren()) do
+  if v:IsA("LocalScript") then
+      local clone = v:Clone()
+      clone.Disabled = true
+      clone.Parent = FakeCharacter
+  end
+end
+if Transparency then
+  for i, v in pairs(FakeCharacter:GetDescendants()) do
+      if v:IsA("BasePart") then
+          v.Transparency = 0.7
+      end
+  end
+end
+local CanInvis = true
+function RealCharacterDied()
+  CanInvis = false
+  RealCharacter:Destroy()
+  RealCharacter = Player.Character
+  CanInvis = true
+  isinvisible = false
+  FakeCharacter:Destroy()
+  workspace.CurrentCamera.CameraSubject = RealCharacter.Humanoid
+
+  RealCharacter.Archivable = true
+  FakeCharacter = RealCharacter:Clone()
+  Part:Destroy()
+  Part = Instance.new("Part", workspace)
+  Part.Anchored = true
+  Part.Size = Vector3.new(200, 1, 200)
+  Part.CFrame = CFrame.new(9999, 9999, 9999) --Set this to whatever you want, just far away from the map.
+  Part.CanCollide = true
+  FakeCharacter.Parent = workspace
+  FakeCharacter.HumanoidRootPart.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
+
+  for i, v in pairs(RealCharacter:GetChildren()) do
+      if v:IsA("LocalScript") then
+          local clone = v:Clone()
+          clone.Disabled = true
+          clone.Parent = FakeCharacter
+      end
+  end
+  if Transparency then
+      for i, v in pairs(FakeCharacter:GetDescendants()) do
+          if v:IsA("BasePart") then
+              v.Transparency = 0.7
+          end
+      end
+  end
+ RealCharacter.Humanoid.Died:Connect(function()
+ RealCharacter:Destroy()
+ FakeCharacter:Destroy()
+ end)
+ Player.CharacterAppearanceLoaded:Connect(RealCharacterDied)
+end
+RealCharacter.Humanoid.Died:Connect(function()
+ RealCharacter:Destroy()
+ FakeCharacter:Destroy()
+ end)
+Player.CharacterAppearanceLoaded:Connect(RealCharacterDied)
+local PseudoAnchor
+game:GetService "RunService".RenderStepped:Connect(
+  function()
+      if PseudoAnchor ~= nil then
+          PseudoAnchor.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
+      end
+       if NoClip then
+      FakeCharacter.Humanoid:ChangeState(11)
+       end
+  end
+)
+
+PseudoAnchor = FakeCharacter.HumanoidRootPart
+local function Invisible()
+  if IsInvisible == false then
+      local StoredCF = RealCharacter.HumanoidRootPart.CFrame
+      RealCharacter.HumanoidRootPart.CFrame = FakeCharacter.HumanoidRootPart.CFrame
+      FakeCharacter.HumanoidRootPart.CFrame = StoredCF
+      RealCharacter.Humanoid:UnequipTools()
+      Player.Character = FakeCharacter
+      workspace.CurrentCamera.CameraSubject = FakeCharacter.Humanoid
+      PseudoAnchor = RealCharacter.HumanoidRootPart
+      for i, v in pairs(FakeCharacter:GetChildren()) do
+          if v:IsA("LocalScript") then
+              v.Disabled = false
+          end
+      end
+
+      IsInvisible = true
+  else
+      local StoredCF = FakeCharacter.HumanoidRootPart.CFrame
+      FakeCharacter.HumanoidRootPart.CFrame = RealCharacter.HumanoidRootPart.CFrame
+     
+      RealCharacter.HumanoidRootPart.CFrame = StoredCF
+     
+      FakeCharacter.Humanoid:UnequipTools()
+      Player.Character = RealCharacter
+      workspace.CurrentCamera.CameraSubject = RealCharacter.Humanoid
+      PseudoAnchor = FakeCharacter.HumanoidRootPart
+      for i, v in pairs(FakeCharacter:GetChildren()) do
+          if v:IsA("LocalScript") then
+              v.Disabled = true
+          end
+      end
+      IsInvisible = false
+  end
+end
+
+game:GetService("UserInputService").InputBegan:Connect(
+  function(key, gamep)
+      if gamep then
+          return
+      end
+      if key.KeyCode.Name:lower() == Keybind:lower() and CanInvis and RealCharacter and FakeCharacter then
+          if RealCharacter:FindFirstChild("HumanoidRootPart") and FakeCharacter:FindFirstChild("HumanoidRootPart") then
+              Invisible()
+          end
+      end
+  end
+)
+local Sound = Instance.new("Sound",game:GetService("SoundService"))
+Sound.SoundId = "rbxassetid://232127604"
+Sound:Play()
+game:GetService("StarterGui"):SetCore("SendNotification",{["Title"] = "invis loaded",["Text"] = "Press "..Keybind.." to change visibility.",["Duration"] = 20,["Button1"] = "Okay."})
+    end
+ })
+
  Section3:Check({
     Text = "Infinite Jump",
     Callback = function(Value)
@@ -649,6 +802,130 @@ Section4:Slider({
     end
  })
 
+ Section:Button({
+    Text = "Kill All Method #2 [BetterMethod]",
+    Callback = function()
+        local args = {
+            [1] = "[ReaperCheats.cc] Killing Everyone...",
+            [2] = "All"
+        }
+        
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+        
+        
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local client = Players.LocalPlayer
+        local remote = ReplicatedStorage.WeaponFrameworkRep.Events.Damage
+        
+        local function killPlayer(player)
+            local character = player.Character
+            if character then
+                local instance = character:GetChildren()[1]
+                local args = {
+                    19742,
+                    {instance},
+                    {
+                        ["DamageHumanoid"] = {
+                            ["Value"] = math.huge,
+                        },
+                        ["DamageVehicle"] = {
+                            ["Value"] = math.huge,
+                        },
+                        ["Explosive"] = {
+                            ["ExplosiveDamageHumanoid"] = {
+                                ["Value"] = math.huge,
+                            },
+                            ["ExplosiveDamageVehicle"] = {
+                                ["Value"] = math.huge,
+                            },
+                        },
+                    },
+                    Vector3.new(0,0,0)
+                }
+                remote:FireServer(unpack(args))
+            end
+        end
+        
+        for _,v in pairs(Players:GetPlayers()) do -- remove get players for name
+            killPlayer(v)
+        end
+
+        wait(1)
+
+        local args = {
+            [1] = "[ReaperCheats.cc] Gappie Update je AntiCheat Eens!",
+            [2] = "All"
+        }
+        
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+
+    end
+ })
+
+ Section:Button({
+    Text = "Kill All Method #3 [Networked]",
+    Callback = function()
+        local args = {
+            [1] = "[ReaperCheats.cc] Killing Everyone...",
+            [2] = "All"
+        }
+        
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+        
+        
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local client = Players.LocalPlayer
+        local remote = ReplicatedStorage.WeaponFrameworkRep.Eventos.Damage
+        
+        local function killPlayer(player)
+            local character = player.Character
+            if character then
+                local instance = character:GetChildren()[1]
+                local args = {
+                    19742,
+                    {instance},
+                    {
+                        ["DamageHumanoid"] = {
+                            ["Value"] = math.huge,
+                        },
+                        ["DamageVehicle"] = {
+                            ["Value"] = math.huge,
+                        },
+                        ["Explosive"] = {
+                            ["ExplosiveDamageHumanoid"] = {
+                                ["Value"] = math.huge,
+                            },
+                            ["ExplosiveDamageVehicle"] = {
+                                ["Value"] = math.huge,
+                            },
+                        },
+                    },
+                    Vector3.new(0,0,0)
+                }
+                remote:FireServer(unpack(args))
+            end
+        end
+        
+        for _,v in pairs(Players:GetPlayers()) do -- remove get players for name
+            killPlayer(v)
+        end
+
+        wait(1)
+
+        local args = {
+            [1] = "[ReaperCheats.cc] John son x Berlin <3",
+            [2] = "All"
+        }
+        
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+
+    end
+ })
+
  Section:Check({
     Text = "Client Bring All",
     Callback = function(Value)
@@ -669,6 +946,14 @@ Section4:Slider({
                 end
             end
         end)
+    end
+ })
+
+ Section:Button({
+    Text = "[Info Client Bring]",
+    Callback = function()
+        NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+        NotificationLibrary:SendNotification("Info", "This Wil LOCALLY Bring All The People In The Server To Your Current Location, You Can However Kill Them!", 8)
     end
  })
 
@@ -878,7 +1163,7 @@ else
 
 
  Section1:Button({
-    Text = "Fling Target",
+    Text = "Fling Target [!]",
     Callback = function()
         local playerName = selectedPlater -- Replace with the partial name or display name you want to search for
     
@@ -1004,12 +1289,42 @@ end
     end
 })
 
+Section:Button({
+    Text = "Spawn-In All Guns",
+    Callback = function()
+        local args = { [1] = "Change", [2] = "AK-47 met suppressor", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "AKM", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "AKM met suppressor", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "AKS-74U Met Suppressor", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "BE SIG MCX", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Desert Eagle", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Draco", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Glock 17", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Gold AKM", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Gold Glock17", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Gold Remington 870", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "M17", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "M9", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "MP5SD", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Makarov", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Remington 870", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Revolver", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Rode AKM", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Rode Glock17", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Rode Skorpion", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Shield", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Skorpion", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "UZI", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "Walther P99", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+        local args = { [1] = "Change", [2] = "XM2010", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
+    end
+})
+
 
  Section:Button({
     Text = "Spawn-In Tiewraps",
     Callback = function()
         local args = { [1] = "Change", [2] = "Tiewraps", [3] = "Inv" } game:GetService("ReplicatedStorage").Inventory:FireServer(unpack(args))
-
     end
  })
 
@@ -1336,6 +1651,49 @@ end
         end
     end
  })
+
+ Section:Button({
+    Text = "Silent Aim [!!!]",
+    Callback = function()
+        local Players = game.Players
+        local LocalPlayer = Players.LocalPlayer
+        local Mouse = LocalPlayer:GetMouse()
+        function ClosestPlayerToCurser()
+            local MaxDistance, Closest = math.huge
+            for i,v in pairs(Players.GetPlayers(Players)) do
+                if v ~= LocalPlayer and v.Character then
+                    local H = v.Character.FindFirstChild(v.Character, "Head")
+                    if H then 
+                        local Pos, Vis = Workspace.CurrentCamera.WorldToScreenPoint(Workspace.CurrentCamera, H.Position)
+                        if Vis then
+                            local A1, A2 = Vector2.new(Mouse.X, Mouse.Y), Vector2.new(Pos.X, Pos.Y)
+                            local Dist = (A2 - A1).Magnitude
+                            if Dist < MaxDistance and Dist <= math.huge then
+                                MaxDistance = Dist
+                                Closest = v
+                            end
+                        end
+                    end
+                end
+            end
+            return Closest
+        end
+        
+        
+        local OldNameCall = nil
+        OldNameCall = hookmetamethod(game, "__namecall", function(self,...)
+            local Args = {...}
+            if getnamecallmethod() == "FindPartOnRayWithIgnoreList" and not checkcaller()  then
+                local GivemeHead = ClosestPlayerToCurser()
+                if GivemeHead and GivemeHead.Character and GivemeHead.Character.FindFirstChild(GivemeHead.Character, "HumanoidRootPart") then
+                    Args[1] = Ray.new(Workspace.CurrentCamera.CFrame.Position, (GivemeHead.Character.HumanoidRootPart.Position - Workspace.CurrentCamera.CFrame.Position).Unit * 1000)
+                    return OldNameCall(self, unpack(Args))
+                end
+            end
+            return OldNameCall(self, ...)
+        end)
+    end
+ })
  
  --// Loading ESP Modules
 local espLib = {
@@ -1500,3 +1858,59 @@ while true do
     end
     wait(0.25)
 end
+
+-- Detection For View [Spectate]
+
+local partialName = string.lower(game.Players.LocalPlayer.Name)
+local Players = game:GetService("Players")
+local targetPlayer = nil
+
+local function findTargetPlayer()
+    for _, player in pairs(Players:GetPlayers()) do
+        if string.find(string.lower(player.Name), partialName) then
+            targetPlayer = player
+            break
+        end
+    end
+end
+
+local function onPlayerChatted(player, msg)
+    if msg:lower() == ":view " .. game.Players.LocalPlayer.Name then
+        NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+        NotificationLibrary:SendNotification("Info", player.Name .. " is viewing you, be carefull", 15)
+    end
+end
+
+local function connectToPlayers()
+    for _, player in pairs(Players:GetPlayers()) do
+        player.Chatted:Connect(function(msg)
+            onPlayerChatted(player, msg)
+        end)
+    end
+end
+
+Players.PlayerAdded:Connect(findTargetPlayer)
+
+findTargetPlayer()
+
+connectToPlayers()
+
+local function onPlayerChatted(player, msg)
+    if msg:lower() == ":view " .. game.Players.LocalPlayer.Name then
+        NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+        NotificationLibrary:SendNotification("Info", player.Name .. " is viewing you, be carefull", 15)
+    elseif msg:lower() == ":unview" then
+        NotificationLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/lobox920/Notification-Library/Main/Library.lua"))()
+        NotificationLibrary:SendNotification("Info", "You're Safe Again, View Ended", 15)
+    end
+end
+
+local function connectToPlayers()
+    for _, player in pairs(Players:GetPlayers()) do
+        player.Chatted:Connect(function(msg)
+            onPlayerChatted(player, msg)
+        end)
+    end
+end
+
+connectToPlayers()
